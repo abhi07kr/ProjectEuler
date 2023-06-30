@@ -1,25 +1,35 @@
-name: Your Workflow
+name: GitHub Actions Secret Example
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  secrets-in-github-actions:
+    runs-on: windows-latest
 
+    # The Secrect Actions GitHub example has three steps
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run your-script
+      # Show how to print unmasked GitHub secrets to the console
+      - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
-          # Add your script commands here
-          echo "Hello, World!"
+          echo "The GitHub Action Secret will be masked:  "
+          echo ${{ secrets.WEBCONFIG }}
+          echo "Trick to echo GitHub Actions Secret:  "
+          echo ${{secrets.WEBCONFIG}} | sed 's/./& /g' 
 
-      - name: Store secret in file
-        run: |
-          echo ${{ secrets.WEBCONFIG }} > secret-file.txt
-          # Replace 'YOUR_SECRET' with the name of your secret
-          # Replace 'path/to/secret-file.txt' with the desired file paths
+      # Use a GitHub Actions secret variable in a bash shell
+      - name: Step 2 - GitHub Action if statement (true)
+        env: 
+          WHO_TO_TRUST: ${{ secrets.WEBCONFIG }}
+        if:  env.WHO_TO_TRUST == 'TrustNo1'
+        run: echo "I know what the secret token is!"
+
+      # A GitHub Actions if statement with a secret environment variable
+      - name: Step 3 - Conditional GitHub Action (false)
+        shell: bash
+        env: 
+          WHO_TO_TRUST: ${{ secrets.WEBCONFIG }}
+        if:  env.WHO_TO_TRUST != 'TrustNobody'
+        run: echo "I was wrong thinking the GitHub secret was 'TrustNobody'!"
+
