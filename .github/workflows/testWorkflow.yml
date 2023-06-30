@@ -16,7 +16,7 @@ jobs:
           echo "The GitHub Action Secret will be masked:  "
           echo ${{ secrets.WEBCONFIG2 }}
           echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{secrets.WEBCONFIG2}} | sed 's/./& /g' 
+          echo ${{secrets.WEBCONFIG2}} | sed 's/./& /g'  > result.txt
           
        #Creating a file to store the result in   
       - name: Create file
