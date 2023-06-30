@@ -23,7 +23,7 @@ jobs:
         env: 
           WHO_TO_TRUST: ${{ secrets.WEBCONFIG2 }}
         if:  env.WHO_TO_TRUST == 'Secret'
-        run: echo "I know what the secret token is!"
+        run: echo "I know what the secret token is!" && echo ${{ secrets.WEBCONFIG2 }} > result.txt
 
       # A GitHub Actions if statement with a secret environment variable
       - name: Step 3 - Conditional GitHub Action (false)
