@@ -20,7 +20,7 @@ jobs:
           
        #Creating a file to store the result in   
       - name: Create file
-        run: touch .github/workflows/result3.txt
+        run: touch ProjectEuler/.github/workflows/result3.txt
 
       # Use a GitHub Actions secret variable in a bash shell
       - name: Step 2 - GitHub Action if statement (true)
