@@ -1,0 +1,2 @@
+- name: Store Result
+  run: echo "${{ steps.YOUR_STEP_ID.outputs.result }}" > result.txt
